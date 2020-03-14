@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+    proxy:
+        image: jwilder/nginx-proxy
+        ports:
+            - "80:80"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+    access-control:
+        build: ./services/access-control
+        volumes:
+            - ./services/access-control:/app
+            - /app/node_modules
+        environment:
+            - VIRTUAL_HOST=access.alliron.local
+        command: "npm start"
+    booking:
+        build: ./services/booking
+        volumes:
+            - ./services/booking:/app
+            - /app/node_modules
+        environment:
+            - VIRTUAL_HOST=booking.alliron.local
+            - AC_SERVICE_WWW=access-control:3001
+        command: "npm start"
