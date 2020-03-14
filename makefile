@@ -15,9 +15,15 @@ dev: ## Start Dev platform
 	@docker-compose up --build -d
 	@make dev-logs
 
-dev-rebuild:
+dev-rebuild: ## Forcing to remove docker cache
 	@docker-compose build --no-cache --force-rm
 	@docker-compose up -d
 
-dev-logs:
+dev-stop: ## Stop dev env
+	@docker-compose down
+
+dev-rm: ## Remove everything from dev env
+	@docker-compose down -v --rmi all --remove-orphans
+
+dev-logs: ## Output logs from access-control booking
 	@docker-compose logs -f access-control booking
