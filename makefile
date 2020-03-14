@@ -6,7 +6,7 @@ help:
 init: ## Prepare platform
 	@echo "Cloning Access Platform"
 	@git clone https://github.com/AllironRentals/control-access-simulator.git ./services/access-control
-	@echo 'FROM node:13-alpine\nADD package.json /tmp/package.json\nADD package-lock.json /tmp/package-lock.json\nRUN cd /tmp && npm install\nRUN mkdir -p /app\nRUN cp -a /tmp/node_modules /app/\n\nWORKDIR /app\n\nEXPOSE 3001\n\nCMD ["npm", "start"]' >> ./services/access-control/Dockerfile
+	@echo 'FROM node:13-alpine\nADD package.json /tmp/package.json\nADD package-lock.json /tmp/package-lock.json\nRUN cd /tmp && npm ci\nRUN mkdir -p /app\nRUN cp -a /tmp/node_modules /app/\n\nWORKDIR /app\n\nEXPOSE 3001\n\nCMD ["npm", "start"]' >> ./services/access-control/Dockerfile
 	@git clone https://github.com/danibram/demo-booking.git ./services/booking
 
 
